@@ -1,6 +1,6 @@
 ---
 name: publish
-description: Use when publishing a new version of ccfaststatus — covers bump, tag, GitHub Actions release build, and Homebrew tap formula update on r9r-dev/homebrew-tap
+description: Use when publishing a new version of ccfaststatus — covers bump, tag, GitHub Actions release build, and Homebrew tap formula update on ronalove/homebrew-tap
 ---
 
 # publish
@@ -17,8 +17,8 @@ Publier une nouvelle version de ccfaststatus : bump version, release GitHub
 
 | Champ | Valeur |
 |-------|--------|
-| Repo principal | `r9r-dev/ccfaststatus` |
-| Repo tap | `r9r-dev/homebrew-tap` |
+| Repo principal | `ronalove/ccfaststatus` |
+| Repo tap | `ronalove/homebrew-tap` |
 | Formula | `Formula/ccfaststatus.rb` |
 | Cible build | `aarch64-apple-darwin` (macOS arm64 uniquement) |
 | Nom binaire | `ccfaststatus` |
@@ -29,7 +29,7 @@ Publier une nouvelle version de ccfaststatus : bump version, release GitHub
 1. Bump `version` dans `Cargo.toml` + commit
 2. Tag annoté `vX.Y.Z` + push (branche **et** tag)
 3. GitHub Actions build macOS arm64 → Release avec tarball + `.sha256`
-4. MAJ Formula dans `r9r-dev/homebrew-tap` (version, url, sha256)
+4. MAJ Formula dans `ronalove/homebrew-tap` (version, url, sha256)
 5. Vérification `brew upgrade`
 
 ## Étape 1 — Bump version
@@ -56,9 +56,9 @@ sont obligatoires, sinon le workflow Release ne se déclenche pas.
 ## Étape 3 — Attendre la Release
 
 ```sh
-RUN_ID=$(gh run list --repo r9r-dev/ccfaststatus --workflow Release --limit 1 \
+RUN_ID=$(gh run list --repo ronalove/ccfaststatus --workflow Release --limit 1 \
          --json databaseId -q '.[0].databaseId')
-gh run watch "$RUN_ID" --repo r9r-dev/ccfaststatus --exit-status
+gh run watch "$RUN_ID" --repo ronalove/ccfaststatus --exit-status
 ```
 
 Durée typique : ~1 min cache cargo chaud, ~3 min cache froid.
@@ -68,7 +68,7 @@ Durée typique : ~1 min cache cargo chaud, ~3 min cache froid.
 ```sh
 VERSION=X.Y.Z
 SHA=$(curl -fsSL \
-  "https://github.com/r9r-dev/ccfaststatus/releases/download/v${VERSION}/ccfaststatus-${VERSION}-aarch64-apple-darwin.tar.gz.sha256" \
+  "https://github.com/ronalove/ccfaststatus/releases/download/v${VERSION}/ccfaststatus-${VERSION}-aarch64-apple-darwin.tar.gz.sha256" \
   | awk '{print $1}')
 echo "$SHA"
 ```
@@ -79,7 +79,7 @@ Le fichier `.sha256` contient `<hash>  <filename>` — on ne garde que le hash.
 
 ```sh
 cd /tmp && rm -rf homebrew-tap
-git clone https://github.com/r9r-dev/homebrew-tap.git
+git clone https://github.com/ronalove/homebrew-tap.git
 cd homebrew-tap
 ```
 

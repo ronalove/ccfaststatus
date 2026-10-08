@@ -3,7 +3,7 @@
 ## Pitch
 
 « The Fastest Status Line for Claude Code », binaire Rust natif. Distribué via
-Homebrew (`brew install r9r-dev/tap/ccfaststatus`). macOS arm64 uniquement.
+Homebrew (`brew install ronalove/tap/ccfaststatus`). macOS arm64 uniquement.
 
 ## Architecture rapide
 
@@ -42,7 +42,7 @@ tests/
 
 Un skill `/publish` existe dans `.claude/skills/publish/SKILL.md`. Il décrit les 6
 étapes (bump Cargo.toml, tag, push, attente CI, récup SHA256, MAJ Formula dans
-`r9r-dev/homebrew-tap`). L'utiliser pour toute release.
+`ronalove/homebrew-tap`). L'utiliser pour toute release.
 
 ## Conventions
 
@@ -101,6 +101,6 @@ uncommitted, car la fixture `with_git` pointe le repo lui-même. C'est normal
 
 ## Homebrew tap
 
-Repo séparé : `r9r-dev/homebrew-tap`. Formula dans `Formula/ccfaststatus.rb`.
+Repo séparé : `ronalove/homebrew-tap`. Formula dans `Formula/ccfaststatus.rb`.
 Le bloc `caveats` affiche le message d'installation interactive à la fin du
 `brew install`. Pour bump le Formula, utiliser le skill `/publish`.

@@ -3,7 +3,7 @@ name = "ccfaststatus"
 version = "0.6.0"
 edition = "2021"
 description = "The Fastest Status Line for Claude Code, développée en Rust"
-repository = "https://github.com/r9r-dev/ccfaststatus"
+repository = "https://github.com/ronalove/ccfaststatus"
 license = "WTFPL"
 
 [dependencies]

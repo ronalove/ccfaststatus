@@ -25,7 +25,7 @@ Mesures réalisées via `zsh/datetime` (`EPOCHREALTIME`) sur Apple Silicon. Le f
 ### Homebrew (macOS arm64 uniquement !)
 
 ```sh
-brew install r9r-dev/tap/ccfaststatus
+brew install ronalove/tap/ccfaststatus
 ```
 
 ### Depuis les sources
