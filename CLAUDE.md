@@ -104,3 +104,6 @@ uncommitted, car la fixture `with_git` pointe le repo lui-même. C'est normal
 Repo séparé : `ronalove/homebrew-tap`. Formula dans `Formula/ccfaststatus.rb`.
 Le bloc `caveats` affiche le message d'installation interactive à la fin du
 `brew install`. Pour bump le Formula, utiliser le skill `/publish`.
+`url` et `sha256` restent au niveau de la classe, jamais dans `on_macos` :
+sinon `brew tap ronalove/tap` refuse tout le tap (arrivé le 2026-10-09) ;
+`/publish` le vérifie avant de pousser.

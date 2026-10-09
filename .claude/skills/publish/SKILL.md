@@ -89,6 +89,25 @@ cd homebrew-tap
   (la version apparaît **deux fois** dans l'URL : `/vX.Y.Z/` puis `-X.Y.Z-`)
 - `sha256 "<nouveau-hash>"`
 
+`url` et `sha256` restent au niveau de la classe, jamais dans un bloc
+`on_macos` : sous Linux, la formule n'aurait plus d'URL et `brew tap
+ronalove/tap` refuserait tout le tap. `depends_on :macos` et
+`depends_on arch: :arm64` refusent déjà l'installation ailleurs.
+
+Avant de pousser, la vérification que fait `brew tap` (chaque formule doit se
+charger sur tous les systèmes et processeurs connus de Homebrew) :
+
+```sh
+brew ruby -e '
+  require "readall"
+  files = ARGV.map { |file| Pathname(file).expand_path }
+  exit Readall.valid_tap?(Tap.fetch("ronalove/tap"), formula_files: files, cask_files: [])
+' Formula/*.rb && echo "tap valide"
+```
+
+Sans « tap valide », ne pas pousser : brew affiche la formule et la plateforme
+en cause.
+
 ```sh
 git add Formula/ccfaststatus.rb
 git commit -m "ccfaststatus: vX.Y.Z"
@@ -113,3 +132,4 @@ echo '{}' | ccfaststatus | head -c 40
 | Mauvais format SHA256 copié | `awk '{print $1}'` sur le fichier `.sha256` |
 | `brew install` voit encore l'ancienne version | `brew update` force la resync du tap |
 | Workflow CI `Release` ne démarre pas | Vérifier que le tag matche le pattern `v*` |
+| `brew tap ronalove/tap` refuse tout le tap (« formula requires at least a URL ») | `url` et `sha256` hors de `on_macos`, vérification `brew ruby` de l'étape 5 avant le push (`brew install` et `brew update` ne la font pas) |
